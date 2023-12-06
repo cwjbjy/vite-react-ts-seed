@@ -48,7 +48,7 @@ const MySelect = forwardRef(function MySelect(_props, ref) {
 
   return (
     <Select
-      style={{ width: 430 }}
+      style={{ width: '100%' }}
       dropdownRender={(menu) => (
         <>
           {menu}

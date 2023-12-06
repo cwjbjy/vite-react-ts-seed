@@ -50,7 +50,11 @@ const columns: ColumnTypes[number][] = [
 
 const MyTable = () => {
   const { dataSource } = useContext(MyContext);
-  return <Table columns={columns} dataSource={dataSource} bordered pagination={{ pageSize: 50 }} scroll={{ y: 380 }} />;
+  return (
+    <div style={{ marginTop: 16 }}>
+      <Table columns={columns} dataSource={dataSource} bordered pagination={{ pageSize: 50 }} scroll={{ y: 380 }} />
+    </div>
+  );
 };
 
 export default MyTable;

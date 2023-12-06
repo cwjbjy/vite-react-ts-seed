@@ -1,6 +1,7 @@
 import React from 'react';
 
 export interface DataType {
+  key: number;
   dataName: string;
   dataDate: string;
   dataNum: number;

@@ -77,7 +77,16 @@ const MyModal = () => {
   return (
     <>
       {contextHolder}
-      <Modal title="添加数据" open={isModalVisible} onOk={handleOk} onCancel={() => setModal(false)}>
+      <Modal
+        title="添加数据"
+        cancelText="取消"
+        okText="确认"
+        width="75vw"
+        style={{ maxWidth: 520 }}
+        open={isModalVisible}
+        onOk={handleOk}
+        onCancel={() => setModal(false)}
+      >
         <Form name="basic" form={form} initialValues={{ dataDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD') }}>
           <Form.Item label="名称">
             <MySelect ref={selectRef} />
@@ -85,7 +94,7 @@ const MyModal = () => {
           <Form.Item label="日期" name="dataDate">
             <Input />
           </Form.Item>
-          <Form.Item label="金额（万）" name="dataNum">
+          <Form.Item label="金额(万)" name="dataNum">
             <Input />
           </Form.Item>
           <Form.Item label="当日收益" name="dataMoney">
