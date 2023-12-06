@@ -1,64 +1,42 @@
-import { Suspense } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
-import styled from 'styled-components';
+import { useRequest } from 'ahooks';
+import { Button } from 'antd';
 
-const Home = () => {
+import { getData } from '@/apis/user';
+
+import { MyContext } from './context';
+
+import type { DataType } from './context';
+
+import Bar from '@/pages/components/bar';
+import Line from '@/pages/components/line';
+import MyModal from '@/pages/components/modal';
+import MyTable from '@/pages/components/table';
+
+const Login = () => {
+  const [isModalVisible, setModal] = useState(false);
+  const [dataSource, setDataSource] = useState<DataType[]>([]);
+
+  useRequest(getData, {
+    onSuccess: (res) => {
+      setDataSource(res.data.data);
+    },
+  });
+
   return (
-    <Wrapper>
-      <div className="header"></div>
-      <div className="main">
-        <aside>
-          <div className="menu_item">
-            <NavLink to="/" end>
-              user
-            </NavLink>
-          </div>
-          <div className="menu_item">
-            <NavLink to="/manage" end>
-              manage
-            </NavLink>
-          </div>
-          <div className="menu_item">
-            <NavLink to="/file" state={{ id: 1 }} end>
-              file
-            </NavLink>
-          </div>
-          <div className="menu_item">
-            <NavLink to="/info" end>
-              info
-            </NavLink>
-          </div>
-        </aside>
-        <section>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet />
-          </Suspense>
-        </section>
-      </div>
-    </Wrapper>
+    <div>
+      <MyContext.Provider value={{ isModalVisible, setModal, dataSource, setDataSource }}>
+        <Button onClick={() => setModal(true)} type="primary" style={{ marginBottom: 16 }}>
+          新增当前日期数据
+        </Button>
+        <MyTable />
+        <Line />
+        <Bar />
+        <MyModal />
+      </MyContext.Provider>
+    </div>
   );
 };
 
-export default Home;
-
-const Wrapper = styled.div`
-  .header {
-    height: 60px;
-    border: 1px solid;
-  }
-  .main {
-    height: calc(100vh - 60px);
-    display: flex;
-    aside {
-      width: 260px;
-      border: 1px solid;
-      .active {
-        color: red;
-      }
-    }
-    section {
-      flex: 1;
-    }
-  }
-`;
+export default Login;

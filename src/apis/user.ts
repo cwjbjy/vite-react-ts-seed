@@ -1,7 +1,11 @@
 import HttpClient from '../utils/axios';
 
-import type { ListParams, ListModel } from './model/userModel';
+import type { DataType } from '@/pages/context';
 
-export const getList = (params: ListParams) => {
-  return HttpClient.get<ListModel>('/list', { params });
+export const addData = (params: DataType) => {
+  return HttpClient.post('/addData', params);
+};
+
+export const getData = () => {
+  return HttpClient.get('/getAllData');
 };
