@@ -53,7 +53,7 @@ const MyModal = () => {
       return;
     }
 
-    const testNumber = /^\d+$/;
+    const testNumber = /^\d+(\.\d+)?$/;
 
     if (!testNumber.test(value.dataNum) || !testNumber.test(value.dataMoney)) {
       messageApi.open({

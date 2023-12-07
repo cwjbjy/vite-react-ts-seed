@@ -39,9 +39,9 @@ const Login = () => {
   return (
     <Spin spinning={loading} tip="加载中...">
       <div ref={ref}>
-        <MyContext.Provider value={{ isModalVisible, setModal, dataSource, setDataSource }}>
+        <MyContext.Provider value={{ smallScreen, isModalVisible, setModal, dataSource, setDataSource }}>
           <Button onClick={() => setModal(true)} type="primary">
-            新增当前日期数据
+            新增收益数据
           </Button>
           {smallScreen ? <MyList /> : <MyTable />}
           <Line />

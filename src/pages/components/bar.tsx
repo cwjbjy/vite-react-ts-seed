@@ -7,9 +7,10 @@ import type { DataType } from '@/pages/context';
 
 import { MyContext } from '@/pages/context';
 import useResize from '@/pages/hooks/useResize';
+import { handleScreen } from '@/pages/utils/index';
 
 const Bar = () => {
-  const { dataSource } = useContext(MyContext);
+  const { dataSource, smallScreen } = useContext(MyContext);
   const domRef = useRef<HTMLDivElement>(null);
 
   const initial = useCallback(() => {
@@ -21,8 +22,7 @@ const Bar = () => {
       echartsInstance.clear();
       //处理数据
       const [xAxisData, seriesData] = formatter(dataSource);
-      // 绘制图表
-      echartsInstance.setOption({
+      const options = {
         title: {
           text: '2023-12-04起每万元产生的收益总额',
         },
@@ -46,9 +46,12 @@ const Bar = () => {
             data: seriesData,
           },
         ],
-      });
+      };
+      if (smallScreen) handleScreen(options, smallScreen);
+      // 绘制图表
+      echartsInstance.setOption(options);
     }
-  }, [dataSource]);
+  }, [dataSource, smallScreen]);
 
   useResize(domRef);
 

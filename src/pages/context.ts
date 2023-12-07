@@ -10,6 +10,7 @@ export interface DataType {
 }
 
 interface Context {
+  smallScreen: boolean;
   isModalVisible: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   dataSource: DataType[];
@@ -17,6 +18,7 @@ interface Context {
 }
 
 const defaultValue = {
+  smallScreen: false,
   isModalVisible: false,
   setModal: () => {},
   dataSource: [],
