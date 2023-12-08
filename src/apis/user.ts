@@ -9,3 +9,7 @@ export const addData = (params: DataType) => {
 export const getData = () => {
   return HttpClient.get('/getAllData');
 };
+
+export const getEarnings = (params: { date: any }) => {
+  return HttpClient.get('/getEarnings', { params });
+};

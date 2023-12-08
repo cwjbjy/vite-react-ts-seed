@@ -1,17 +1,36 @@
-import { useCallback, useContext, useEffect, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
+import { useRequest } from 'ahooks';
+import { Spin, Radio } from 'antd';
 import * as echarts from 'echarts';
 import { isEmpty } from 'lodash';
 
+import { getEarnings } from '@/apis/user';
+
 import type { DataType } from '@/pages/context';
+import type { RadioChangeEvent } from 'antd';
 
 import { MyContext } from '@/pages/context';
 import useResize from '@/pages/hooks/useResize';
 import { handleScreen } from '@/pages/utils/index';
 
 const Bar = () => {
-  const { dataSource, smallScreen } = useContext(MyContext);
+  const { smallScreen } = useContext(MyContext);
   const domRef = useRef<HTMLDivElement>(null);
+  const [data, setData] = useState<DataType[]>([]);
+  const [date, setDate] = useState('WEEK');
+
+  const { run, loading } = useRequest(getEarnings, {
+    manual: true,
+    onSuccess: (res) => {
+      if (!isEmpty(res.data.data)) {
+        setData(res.data.data);
+      }
+    },
+    onError: () => {
+      setData([]);
+    },
+  });
 
   const initial = useCallback(() => {
     if (domRef.current) {
@@ -21,7 +40,7 @@ const Bar = () => {
       }
       echartsInstance.clear();
       //处理数据
-      const [xAxisData, seriesData] = formatter(dataSource);
+      const [xAxisData, seriesData] = formatter(data);
       const options = {
         title: {
           text: '每万元每日产生的平均收益',
@@ -51,15 +70,33 @@ const Bar = () => {
       // 绘制图表
       echartsInstance.setOption(options);
     }
-  }, [dataSource, smallScreen]);
+  }, [data, smallScreen]);
 
   useResize(domRef);
 
   useEffect(() => {
-    if (!isEmpty(dataSource)) initial();
-  }, [dataSource, initial]);
+    if (!isEmpty(data)) initial();
+  }, [data, initial]);
 
-  return <div ref={domRef} style={{ width: '100%', height: 300 }}></div>;
+  useEffect(() => {
+    run({ date });
+  }, [date, run]);
+
+  const handleChange = (e: RadioChangeEvent) => {
+    setDate(e.target.value);
+  };
+
+  return (
+    <Spin spinning={loading} tip="加载中..." delay={500}>
+      <div ref={domRef} style={{ width: '100%', height: 300 }}></div>
+      <Radio.Group defaultValue="WEEK" buttonStyle="solid" size="small" onChange={handleChange}>
+        <Radio.Button value="DAY">今天</Radio.Button>
+        <Radio.Button value="WEEK">近一周</Radio.Button>
+        <Radio.Button value="MONTH">近一个月</Radio.Button>
+        <Radio.Button value="">购买以来</Radio.Button>
+      </Radio.Group>
+    </Spin>
+  );
 };
 
 export default Bar;

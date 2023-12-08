@@ -10,12 +10,12 @@ import { MyContext } from './context';
 import type { DataType } from './context';
 
 import Bar from '@/pages/components/bar';
-import Line from '@/pages/components/line';
+// import Line from '@/pages/components/line';
 import MyList from '@/pages/components/list';
 import MyModal from '@/pages/components/modal';
 import MyTable from '@/pages/components/table';
 
-const Login = () => {
+const Home = () => {
   const [isModalVisible, setModal] = useState(false);
   const [dataSource, setDataSource] = useState<DataType[]>([]);
 
@@ -25,6 +25,9 @@ const Login = () => {
   const { loading } = useRequest(getData, {
     onSuccess: (res) => {
       setDataSource(res.data.data);
+    },
+    onError: () => {
+      setDataSource([]);
     },
   });
 
@@ -37,14 +40,14 @@ const Login = () => {
   }, [size]);
 
   return (
-    <Spin spinning={loading} tip="加载中...">
+    <Spin spinning={loading} tip="加载中..." delay={500}>
       <div ref={ref}>
         <MyContext.Provider value={{ smallScreen, isModalVisible, setModal, dataSource, setDataSource }}>
           <Button onClick={() => setModal(true)} type="primary">
             新增收益数据
           </Button>
           {smallScreen ? <MyList /> : <MyTable />}
-          <Line />
+          {/* <Line /> */}
           <Bar />
           <MyModal />
         </MyContext.Provider>
@@ -53,4 +56,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Home;
