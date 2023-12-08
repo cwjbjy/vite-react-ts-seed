@@ -24,6 +24,7 @@ const MySelect = forwardRef(function MySelect(_props, ref) {
       '招银理财日日金18号E',
       '宁银理财天天鎏金5号D',
       '信银理财日盈象天天利42号B',
+      '朝朝宝',
     ],
   });
 

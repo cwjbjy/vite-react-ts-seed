@@ -24,7 +24,7 @@ const Bar = () => {
       const [xAxisData, seriesData] = formatter(dataSource);
       const options = {
         title: {
-          text: '2023-12-04起每万元产生的收益总额',
+          text: '每万元每日产生的平均收益',
         },
         tooltip: {
           trigger: 'axis',
@@ -76,9 +76,10 @@ function formatter(list: DataType[]) {
   const xAxisData = keys.map((o) => o.substring(0, 4).replace(/（.*?/g, ''));
   const seriesData = keys.map((o, i) => {
     const arr = object[o];
+    const length = arr.length;
     const total = arr.reduce((res: number, cur: DataType) => (res += parseFloat(cur.atomMoney)), 0).toFixed(2);
     return {
-      value: total,
+      value: (total / length).toFixed(2),
       itemStyle: {
         color: colors[i],
       },

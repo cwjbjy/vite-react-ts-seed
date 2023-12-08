@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
 import { Table } from 'antd';
+import styled from 'styled-components';
 
 import { MyContext } from '@/pages/context';
 
@@ -45,16 +46,34 @@ const columns: ColumnTypes[number][] = [
     dataIndex: 'atomMoney',
     width: '15%',
     align: 'right',
+    render: (text: string) => {
+      return (
+        <span className={parseFloat(text) > 0.7 ? 'orange' : parseFloat(text) < 0 ? 'green' : 'blue'}>{text}</span>
+      );
+    },
   },
 ];
 
 const MyTable = () => {
   const { dataSource } = useContext(MyContext);
   return (
-    <div style={{ marginTop: 16 }}>
+    <Wrapper>
       <Table columns={columns} dataSource={dataSource} bordered pagination={{ pageSize: 50 }} scroll={{ y: 380 }} />
-    </div>
+    </Wrapper>
   );
 };
 
 export default MyTable;
+
+const Wrapper = styled.div`
+  margin-top: 16px;
+  .green {
+    color: rgb(120, 188, 111);
+  }
+  .orange {
+    color: rgb(255, 72, 72);
+  }
+  .blue {
+    color: rgb(50, 101, 208);
+  }
+`;

@@ -20,7 +20,13 @@ const MyList = () => {
               <div>当日收益：{item.dataMoney}</div>
               <div>
                 每万元产生的当日收益：
-                <span className={parseFloat(item.atomMoney) > 0.7 ? 'orange' : 'blue'}>{item.atomMoney}</span>
+                <span
+                  className={
+                    parseFloat(item.atomMoney) > 0.7 ? 'orange' : parseFloat(item.atomMoney) < 0 ? 'green' : 'blue'
+                  }
+                >
+                  {item.atomMoney}
+                </span>
               </div>
             </div>
           </Item>
@@ -52,6 +58,9 @@ const Item = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .green {
+      color: rgb(120, 188, 111);
+    }
     .orange {
       color: rgb(255, 72, 72);
     }
