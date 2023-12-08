@@ -3,11 +3,14 @@ import { useCallback, useContext, useRef } from 'react';
 import { useRequest } from 'ahooks';
 import { Modal, Form, Input, message } from 'antd';
 import dayjs from 'dayjs';
+import PubSub from 'pubsub-js';
 
 import { addData, getData } from '@/apis/user';
 
 import MySelect from './select';
 
+import { TOKEN } from '@/config/localStorage';
+import { UPDATEBAR } from '@/config/pubsub';
 import { MyContext } from '@/pages/context';
 
 const MyModal = () => {
@@ -28,6 +31,7 @@ const MyModal = () => {
   const { run: add } = useRequest(addData, {
     manual: true,
     onSuccess: () => {
+      PubSub.publish(UPDATEBAR);
       getAll();
     },
   });
@@ -68,6 +72,9 @@ const MyModal = () => {
 
     //机构名称
     value.dataName = selectRef.current?.name;
+
+    //用户名称
+    value.username = localStorage.getItem(TOKEN);
 
     add(value);
 

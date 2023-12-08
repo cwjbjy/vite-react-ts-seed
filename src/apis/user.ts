@@ -10,6 +10,10 @@ export const getData = () => {
   return HttpClient.get('/getAllData');
 };
 
-export const getEarnings = (params: { date: any }) => {
+export const getEarnings = (params: { date: string }) => {
   return HttpClient.get('/getEarnings', { params });
+};
+
+export const login = (params: { username: string }) => {
+  return HttpClient.get('/financialLogin', { params });
 };

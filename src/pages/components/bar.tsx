@@ -4,12 +4,14 @@ import { useRequest } from 'ahooks';
 import { Spin, Radio } from 'antd';
 import * as echarts from 'echarts';
 import { isEmpty } from 'lodash';
+import PubSub from 'pubsub-js';
 
 import { getEarnings } from '@/apis/user';
 
 import type { DataType } from '@/pages/context';
 import type { RadioChangeEvent } from 'antd';
 
+import { UPDATEBAR } from '@/config/pubsub';
 import { MyContext } from '@/pages/context';
 import useResize from '@/pages/hooks/useResize';
 import { handleScreen } from '@/pages/utils/index';
@@ -85,6 +87,16 @@ const Bar = () => {
   const handleChange = (e: RadioChangeEvent) => {
     setDate(e.target.value);
   };
+
+  useEffect(() => {
+    PubSub.subscribe(UPDATEBAR, () => {
+      run({ date });
+    });
+    return () => {
+      PubSub.unsubscribe(UPDATEBAR);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Spin spinning={loading} tip="加载中..." delay={500}>
