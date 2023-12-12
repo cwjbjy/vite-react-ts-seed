@@ -64,6 +64,17 @@ const Bar = () => {
               show: true,
               position: 'top',
             },
+            markLine: {
+              silent: true,
+              lineStyle: {
+                color: 'red',
+              },
+              data: [
+                {
+                  yAxis: 0.65,
+                },
+              ],
+            },
             data: seriesData,
           },
         ],
