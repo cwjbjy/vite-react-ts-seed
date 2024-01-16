@@ -3,8 +3,9 @@ import { lazy } from 'react';
 
 import ErrorBoundary from '../pages/errorBoundary';
 
-import file from './file';
-import manage from './manage';
+<%_ chooseModules.forEach(function(item){%>
+    import <%=item %> from '<%=deelRouteName(item) %>';
+  <% }) _%>
 
 const Login = lazy(() => import('../pages/login'));
 const Home = lazy(() => import('../pages/home'));
@@ -23,8 +24,9 @@ const routes = [
         path: '/',
         element: <User />,
       },
-      ...file,
-      ...manage,
+      <%_ chooseModules.forEach(function(item){%>
+        ...<%=item %>,
+       <% }) %>
     ],
   },
   {
