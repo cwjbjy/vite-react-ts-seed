@@ -3,14 +3,21 @@ import path from 'path'; //这个path用到了上面安装的@types/node
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
 import viteCompression from 'vite-plugin-compression';
+import { createHtmlPlugin } from 'vite-plugin-html';
 import { replaceCodePlugin } from 'vite-plugin-replace';
 
 // https://vitejs.dev/config/
 
 export default ({ mode }) => {
-  console.log('mode', loadEnv(mode, process.cwd()).VITE_BASE_URL); //127.0.0.1:9000/api
   return defineConfig({
     plugins: [
+      createHtmlPlugin({
+        inject: {
+          data: {
+            injectScript: `<script src="${loadEnv(mode, process.cwd()).VITE_CONFIG}"></script>`,
+          },
+        },
+      }),
       react(),
       {
         ...replaceCodePlugin({
