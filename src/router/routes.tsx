@@ -3,7 +3,7 @@ import { lazy } from 'react';
 
 import ErrorBoundary from '../pages/errorBoundary';
 
-const Login = lazy(() => import('../pages/login'));
+// const Login = lazy(() => import('../pages/login'));
 const Home = lazy(() => import('../pages/home'));
 const User = lazy(() => import('../pages/user'));
 const Manage = lazy(() => import('../pages/manage'));
@@ -12,15 +12,15 @@ const Info = lazy(() => import('../pages/info'));
 
 const routes = [
   {
-    path: '/login',
-    element: <Login />,
+    path: '/',
+    element: <User />,
   },
   {
     element: <Home />,
     errorElement: <ErrorBoundary />,
     children: [
       {
-        path: '/',
+        path: '/2',
         element: <User />,
       },
       {
