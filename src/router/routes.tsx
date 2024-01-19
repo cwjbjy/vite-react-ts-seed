@@ -9,6 +9,7 @@ const User = lazy(() => import('../pages/user'));
 const Manage = lazy(() => import('../pages/manage'));
 const File = lazy(() => import('../pages/file'));
 const Info = lazy(() => import('../pages/info'));
+const Graph = lazy(() => import('../pages/graph'));
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
     children: [
       {
         path: '/',
+        element: <Graph />,
+      },
+      {
+        path: '/user',
         element: <User />,
       },
       {
