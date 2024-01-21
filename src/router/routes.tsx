@@ -13,6 +13,10 @@ const Graph = lazy(() => import('../pages/graph'));
 
 const routes = [
   {
+    path: '/',
+    element: <Graph />,
+  },
+  {
     path: '/login',
     element: <Login />,
   },
@@ -20,10 +24,6 @@ const routes = [
     element: <Home />,
     errorElement: <ErrorBoundary />,
     children: [
-      {
-        path: '/',
-        element: <Graph />,
-      },
       {
         path: '/user',
         element: <User />,
