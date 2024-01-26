@@ -1,22 +1,15 @@
-import { useRequest } from 'ahooks';
-import { Button } from 'antd';
-
-import { getAssetsFile } from '@/utils/share';
-
-import { getList } from '@/apis/user';
+import { useEffect } from 'react';
 
 const Login = () => {
-  useRequest(getList, {
-    defaultParams: [{ id: 2 }],
-  });
+  useEffect(() => {
+    fetch(`/config/${import.meta.env.VITE_VERSION}.json`)
+      .then((res) => res.json())
+      .then((res) => {
+        localStorage.setItem('config', JSON.stringify(res));
+      });
+  }, []);
 
-  return (
-    <div>
-      登录页
-      <Button type="primary">Button</Button>
-      <img src={getAssetsFile('home.png')} />
-    </div>
-  );
+  return <div>登录页</div>;
 };
 
 export default Login;
