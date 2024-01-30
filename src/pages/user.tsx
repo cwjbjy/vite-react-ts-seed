@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-// const obj: any = {
-//   a: '2',
-// };
+// console.log(import.meta.env.VITE_VERSION);
+// console.log(import.meta.env.VITE_BASE_URL);
+// console.log(import.meta.env.VITE_GLOABL_KEY);
 
 const User = () => {
   const navigation = useNavigate();

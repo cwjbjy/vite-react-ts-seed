@@ -2,9 +2,10 @@
 const fs = require('fs');
 const path = require('path');
 
+const minimist = require('minimist');
 const shell = require('shelljs');
 
-const platform = process.argv.slice(2)[0].split('=')[1];
+const { platform } = minimist(process.argv.slice(2));
 
 const joinDir = (...dir) => path.join(__dirname, ...dir);
 
@@ -24,6 +25,7 @@ if (!fs.existsSync(originPath)) {
 if (fs.existsSync(targetPath)) {
   //1. 删除
   shell.rm('-rf', targetPath);
+  console.log('删除成功');
 }
 
 //2. 复制

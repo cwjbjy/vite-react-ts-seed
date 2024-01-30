@@ -1,16 +1,17 @@
 /* 使用node方式进行文件拷贝 */
-
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
+import minimist from 'minimist';
+
+const { platform } = minimist(process.argv.slice(2));
 
 const __filenameNew = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filenameNew);
 
 const joinDir = (...dir) => path.join(__dirname, ...dir);
-
-const platform = process.argv.slice(2)[0].split('=')[1];
 
 //源资源路径
 const originPath = joinDir(`../platform/${platform}`);
