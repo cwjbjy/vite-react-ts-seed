@@ -11,7 +11,7 @@ const User = () => {
       {/* 报错：因为取不到c属性 */}
       {/* {obj.b.c} */}
       user
-      <button onClick={() => navigation('/manage')}>manage</button>
+      <button onClick={() => navigation('/login')}>manage</button>
     </div>
   );
 };
