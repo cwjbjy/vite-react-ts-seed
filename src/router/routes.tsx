@@ -1,39 +1,33 @@
-/* eslint-disable react-refresh/only-export-components */
 import { lazy } from 'react';
 
-import ErrorBoundary from '../pages/errorBoundary';
+import LazyImportComponent from '@/components/lazyImportComponent';
 
-const Login = lazy(() => import('../pages/login'));
-const Home = lazy(() => import('../pages/home'));
-const User = lazy(() => import('../pages/user'));
-const Manage = lazy(() => import('../pages/manage'));
-const File = lazy(() => import('../pages/file'));
-const Info = lazy(() => import('../pages/info'));
+import ErrorBoundary from '../pages/errorBoundary';
 
 const routes = [
   {
     path: '/login',
-    element: <Login />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/login'))} />,
   },
   {
-    element: <Home />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/home'))} />,
     errorElement: <ErrorBoundary />,
     children: [
       {
         path: '/',
-        element: <User />,
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/user'))} />,
       },
       {
         path: '/manage',
-        element: <Manage />,
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/manage'))} />,
       },
       {
         path: '/file',
-        element: <File />,
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/file'))} />,
       },
       {
         path: '/info',
-        element: <Info />,
+        element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/info'))} />,
       },
     ],
   },

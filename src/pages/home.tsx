@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -31,9 +30,7 @@ const Home = () => {
           </div>
         </aside>
         <section>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet />
-          </Suspense>
+          <Outlet />
         </section>
       </div>
     </Wrapper>
