@@ -3,7 +3,7 @@ import path from 'path'; //这个path用到了上面安装的@types/node
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
 import viteCompression from 'vite-plugin-compression';
-import { replaceCodePlugin } from 'vite-plugin-replace';
+import replace from 'vite-plugin-filter-replace';
 
 // https://vitejs.dev/config/
 
@@ -12,20 +12,23 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [
       react(),
-      {
-        ...replaceCodePlugin({
-          replacements: [
-            {
+      replace(
+        [
+          {
+            filter: /\.ts$/,
+            replace: {
               from: './routes',
               to: './dev.routerConfig.tsx',
             },
-          ],
-        }),
-        apply(config, { command }) {
-          // 开发环境，并且包含启动参数--moduleLoad
-          return command === 'serve' && process.argv.slice(3)?.join() === '--moduleLoad';
+          },
+        ],
+        {
+          apply(config, { command }) {
+            // 开发环境，并且包含启动参数--moduleLoad
+            return command === 'serve' && process.argv.slice(3)?.join() === '--moduleLoad';
+          },
         },
-      },
+      ),
       {
         ...viteCompression(),
         apply: 'build',

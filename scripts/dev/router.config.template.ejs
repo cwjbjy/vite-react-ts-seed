@@ -1,32 +1,27 @@
-/* eslint-disable react-refresh/only-export-components */
 import { lazy } from 'react';
 
-import ErrorBoundary from '../pages/errorBoundary';
+import LazyImportComponent from '@/components/lazyImportComponent';
 
 <%_ chooseModules.forEach(function(item){%>
     import <%=item %> from '<%=deelRouteName(item) %>';
   <% }) _%>
 
-const Login = lazy(() => import('../pages/login'));
-const Home = lazy(() => import('../pages/home'));
-const User = lazy(() => import('../pages/user'));
 
-const routes = [
+  const routes = [
   {
     path: '/login',
-    element: <Login />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/login'))} />,
   },
   {
-    element: <Home />,
-    errorElement: <ErrorBoundary />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/home'))} />,
     children: [
       {
         path: '/',
-        element: <User />,
+        element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/user'))} />,
       },
       <%_ chooseModules.forEach(function(item){%>
         ...<%=item %>,
-       <% }) %>
+        <% }) %>
     ],
   },
   {

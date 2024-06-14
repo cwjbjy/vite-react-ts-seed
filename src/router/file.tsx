@@ -1,12 +1,11 @@
-/* eslint-disable react-refresh/only-export-components */
 import { lazy } from 'react';
 
-const File = lazy(() => import('../pages/file'));
+import LazyImportComponent from '@/components/lazyImportComponent';
 
 const file = [
   {
     path: '/file',
-    element: <File />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/file'))} />,
   },
 ];
 

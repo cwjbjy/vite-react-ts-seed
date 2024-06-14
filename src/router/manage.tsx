@@ -1,11 +1,11 @@
-/* eslint-disable react-refresh/only-export-components */
 import { lazy } from 'react';
-const Manage = lazy(() => import('../pages/manage'));
+
+import LazyImportComponent from '@/components/lazyImportComponent';
 
 const manage = [
   {
     path: '/manage',
-    element: <Manage />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/manage'))} />,
   },
 ];
 

@@ -1,27 +1,21 @@
-/* eslint-disable react-refresh/only-export-components */
 import { lazy } from 'react';
 
-import ErrorBoundary from '../pages/errorBoundary';
+import LazyImportComponent from '@/components/lazyImportComponent';
 
 import file from './file';
 import manage from './manage';
 
-const Login = lazy(() => import('../pages/login'));
-const Home = lazy(() => import('../pages/home'));
-const User = lazy(() => import('../pages/user'));
-
 const routes = [
   {
     path: '/login',
-    element: <Login />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/login'))} />,
   },
   {
-    element: <Home />,
-    errorElement: <ErrorBoundary />,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/home'))} />,
     children: [
       {
         path: '/',
-        element: <User />,
+        element: <LazyImportComponent lazyChildren={lazy(() => import('../pages/user'))} />,
       },
       ...file,
       ...manage,
