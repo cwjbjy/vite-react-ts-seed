@@ -1,20 +1,14 @@
-import { useRequest } from 'ahooks';
+import { useNavigate } from 'react-router-dom';
+
 import { Button } from 'antd';
 
-import { getAssetsFile } from '@/utils/share';
-
-import { getList } from '@/apis/user';
-
 const Login = () => {
-  useRequest(getList, {
-    defaultParams: [{ id: 2 }],
-  });
-
+  const navigation = useNavigate();
   return (
     <div>
-      登录页
-      <Button type="primary">Button</Button>
-      <img src={getAssetsFile('home.png')} />
+      <Button type="primary" onClick={() => navigation('/user')}>
+        登录
+      </Button>
     </div>
   );
 };

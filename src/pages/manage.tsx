@@ -1,11 +1,25 @@
-import { Navigate } from 'react-router-dom';
+import { useState, useCallback } from 'react';
+import { useBeforeUnload } from 'react-router-dom';
 
-const Manage = () => {
-  if (!localStorage.getItem('token')) {
-    return <Navigate to="/login" replace={true} />;
-  }
+export default function Manage() {
+  const [count, setCount] = useState(localStorage.getItem('count') || '0');
 
-  return <div>manage</div>;
-};
+  useBeforeUnload(
+    useCallback(() => {
+      localStorage.setItem('count', count);
+    }, [count]),
+  );
 
-export default Manage;
+  return (
+    <div>
+      {count}
+      <button
+        onClick={() => {
+          setCount((prev) => prev + '1');
+        }}
+      >
+        按钮
+      </button>
+    </div>
+  );
+}

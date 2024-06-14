@@ -1,19 +1,24 @@
-import { useNavigate } from 'react-router-dom';
+import { useLoaderData, Await, useAsyncValue } from 'react-router-dom';
 
-// const obj: any = {
-//   a: '2',
-// };
+import type { User } from '@/router/loader';
 
-const User = () => {
-  const navigation = useNavigate();
+export default function User() {
+  const { data } = useLoaderData() as { data: Promise<User[]> };
+
   return (
-    <div>
-      {/* 报错：因为取不到c属性 */}
-      {/* {obj.b.c} */}
-      user
-      <button onClick={() => navigation('/manage')}>manage</button>
-    </div>
+    <Await resolve={data}>
+      <List />
+    </Await>
+  );
+}
+
+const List = () => {
+  const data = useAsyncValue() as User[];
+  return (
+    <>
+      {data.map((o) => (
+        <div key={o.id}>{o.name}</div>
+      ))}
+    </>
   );
 };
-
-export default User;

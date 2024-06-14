@@ -1,8 +1,12 @@
 import { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
 
+import ErrorBoundary from '@/components/errorBoundary';
 import LazyImportComponent from '@/components/lazyImportComponent';
 
-import ErrorBoundary from '../pages/errorBoundary';
+import { protectedLoader } from './loader';
+import { usersLoader } from './loader';
+import { tokenLoader } from './loader';
 
 const routes = [
   {
@@ -10,19 +14,27 @@ const routes = [
     element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/login'))} />,
   },
   {
-    element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/home'))} />,
+    path: '/',
+    loader: protectedLoader,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('@/layout'))} />,
     errorElement: <ErrorBoundary />,
     children: [
       {
-        path: '/',
+        index: true,
+        element: <Navigate to={'/user'} replace={true} />,
+      },
+      {
+        path: '/user',
+        loader: usersLoader,
         element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/user'))} />,
       },
       {
         path: '/manage',
+        loader: tokenLoader,
         element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/manage'))} />,
       },
       {
-        path: '/file',
+        path: '/file/:id?',
         element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/file'))} />,
       },
       {
@@ -33,7 +45,7 @@ const routes = [
   },
   {
     path: '*',
-    element: <div>404</div>,
+    element: <LazyImportComponent lazyChildren={lazy(() => import('@/pages/notFound'))} />,
   },
 ];
 
