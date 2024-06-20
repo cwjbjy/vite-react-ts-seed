@@ -1434,7 +1434,7 @@ caniuse-lite@^1.0.30001587:
   resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001600.tgz#93a3ee17a35aa6a9f0c6ef1b2ab49507d1ab9079"
   integrity sha512-+2S9/2JFhYmYaDpZvo0lKkfvuKIglrx68MwOBqMGHhQsNkLjB5xtc/TGoEPs+MxjSyN/72qer2g97nzR641mOQ==
 
-chalk@5.3.0:
+chalk@5.3.0, chalk@^5.3.0:
   version "5.3.0"
   resolved "https://registry.npmmirror.com/chalk/-/chalk-5.3.0.tgz#67c20a7ebef70e7f3970a01f90fa210cb6860385"
   integrity sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==
@@ -2320,6 +2320,15 @@ fs-extra@^10.0.0:
   version "10.1.0"
   resolved "https://registry.npmmirror.com/fs-extra/-/fs-extra-10.1.0.tgz#02873cfbc4084dde127eaa5f9905eef2325d1abf"
   integrity sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
+
+fs-extra@^11.2.0:
+  version "11.2.0"
+  resolved "https://registry.npmmirror.com/fs-extra/-/fs-extra-11.2.0.tgz#e70e17dfad64232287d01929399e0ea7c86b0e5b"
+  integrity sha512-PmDi3uwK5nFuXh7XDTlVnS17xJS7vW36is2+w3xcv8SVxiB4NyATf4ctkVY5bkSjX0Y4nbvZCq1/EjtEyr9ktw==
   dependencies:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
