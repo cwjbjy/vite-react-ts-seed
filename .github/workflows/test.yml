@@ -1,21 +1,14 @@
 on: push
 jobs:
-  job1:
+  node:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        react: ['16', '17']
     steps:
-      - run: echo "job1"
-  job2:
-    runs-on: ubuntu-latest
-    steps:
-      - run: sleep 5
-    needs: job1
-  job3:
-    runs-on: ubuntu-latest
-    steps:
-      - run: sleep 10
-    needs: job1
-  job4:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "job4"
-    needs: [job2, job3]
+      - name: install react 16
+        if: ${{ matrix.react == '16' }}
+        run: echo "react-16"
+      - name: install react 17
+        if: ${{ matrix.react == '17' }}
+        run: echo "react-17"
