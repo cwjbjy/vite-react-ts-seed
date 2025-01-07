@@ -1,6 +1,15 @@
 name: Build app 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment (e.g., dev, test, prod)' 
+        required: true
+        default: 'dev'
+      branch:
+        description: 'Branch to deploy'
+        required: false
+        default: 'main'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -8,3 +17,6 @@ jobs:
       # 获取源码
       - name: 获取源码
         uses: actions/checkout@v4
+      - name: Deploy application
+        run: |
+          echo "Deploying to ${{ github.event.inputs.environment }} from branch ${{ github.event.inputs.branch }}"
