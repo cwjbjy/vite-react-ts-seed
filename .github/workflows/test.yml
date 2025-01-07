@@ -1,0 +1,10 @@
+name: Build app 
+on:
+  workflow_dispatch:
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 获取源码
+      - name: 获取源码
+        uses: actions/checkout@v4
